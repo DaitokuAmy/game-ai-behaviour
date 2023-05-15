@@ -29,7 +29,7 @@ namespace GameAiBehaviour {
                 // 開始処理実行、Enterで失敗したらその時点でエラー
                 if (!handler.OnEnter(Node)) {
                     SetState(State.Failure);
-                    handler.OnEnter(Node);
+                    handler.OnExit(Node);
                     yield break;
                 }
                 
