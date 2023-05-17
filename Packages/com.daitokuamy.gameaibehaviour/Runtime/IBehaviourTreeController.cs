@@ -19,6 +19,16 @@
         IActionNodeHandler GetActionHandler(HandleableActionNode node);
 
         /// <summary>
+        /// ノードにBindされているHandlerの取得
+        /// </summary>
+        IDecorationNodeHandler GetDecoratorHandler(HandleableDecorationNode node);
+
+        /// <summary>
+        /// ノードにBindされているHandlerの取得
+        /// </summary>
+        ILinkNodeHandler GetLinkHandler(HandleableLinkNode node);
+
+        /// <summary>
         /// 思考リセット
         /// </summary>
         void ResetThink();

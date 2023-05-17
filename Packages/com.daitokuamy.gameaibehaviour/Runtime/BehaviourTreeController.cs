@@ -15,6 +15,22 @@ namespace GameAiBehaviour {
             public Action<object> InitAction;
         }
 
+        /// <summary>
+        /// DecorationHandler情報
+        /// </summary>
+        private class DecorationHandlerInfo {
+            public Type Type;
+            public Action<object> InitAction;
+        }
+
+        /// <summary>
+        /// LinkHandler情報
+        /// </summary>
+        private class LinkHandlerInfo {
+            public Type Type;
+            public Action<object> InitAction;
+        }
+
         // 廃棄済みフラグ
         private bool _disposed;
         // 実行データ
@@ -24,11 +40,17 @@ namespace GameAiBehaviour {
         // 思考タイミング用タイマー
         private float _tickTimer;
         // アクションハンドラ情報
-        private readonly Dictionary<Type, ActionHandlerInfo> _actionHandlerInfos =
-            new Dictionary<Type, ActionHandlerInfo>();
+        private readonly Dictionary<Type, ActionHandlerInfo> _actionHandlerInfos = new();
         // アクションノードハンドラ
-        private readonly Dictionary<Node, IActionNodeHandler> _actionNodeHandlers =
-            new Dictionary<Node, IActionNodeHandler>();
+        private readonly Dictionary<Node, IActionNodeHandler> _actionNodeHandlers = new();
+        // デコレーションハンドラ情報
+        private readonly Dictionary<Type, DecorationHandlerInfo> _decorationHandlerInfos = new();
+        // デコレーションノードハンドラ
+        private readonly Dictionary<Node, IDecorationNodeHandler> _decorationNodeHandlers = new();
+        // リンクハンドラ情報
+        private readonly Dictionary<Type, LinkHandlerInfo> _linkHandlerInfos = new();
+        // リンクノードハンドラ
+        private readonly Dictionary<Node, ILinkNodeHandler> _linkNodeHandlers = new();
 
         // ベースとなるTreeのRunner
         private BehaviourTreeRunner _baseRunner;
@@ -59,9 +81,13 @@ namespace GameAiBehaviour {
                 return;
             }
             
-            _disposed = true;
             ResetActionNodeHandlers();
+            ResetDecorationNodeHandlers();
+            ResetLinkNodeHandlers();
             Cleanup();
+            
+            // このフラグによってEarlyReturnしている処理が含まれているので、一番最後でフラグを立てる
+            _disposed = true;
         }
 
         /// <summary>
@@ -98,6 +124,44 @@ namespace GameAiBehaviour {
                 handler.SetExitAction(exitAction);
             });
         }
+        
+        /// <summary>
+        /// DecorationNodeHandlerのBind
+        /// </summary>
+        /// <param name="onInit">Handlerの初期化関数</param>
+        public void BindDecorationNodeHandler<TNode, THandler>(Action<THandler> onInit)
+            where TNode : HandleableDecorationNode
+            where THandler : DecorationNodeHandler<TNode>, new ()
+        {
+            if (_disposed) return;
+            
+            ResetDecorationNodeHandler<TNode>();
+
+            _decorationHandlerInfos[typeof(TNode)] = new DecorationHandlerInfo
+            {
+                Type = typeof(THandler),
+                InitAction = onInit != null ? obj => { onInit.Invoke(obj as THandler); } : null
+            };
+        }
+        
+        /// <summary>
+        /// LinkNodeHandlerのBind
+        /// </summary>
+        /// <param name="onInit">Handlerの初期化関数</param>
+        public void BindLinkNodeHandler<TNode, THandler>(Action<THandler> onInit)
+            where TNode : HandleableLinkNode
+            where THandler : LinkNodeHandler<TNode>, new ()
+        {
+            if (_disposed) return;
+            
+            ResetLinkNodeHandler<TNode>();
+
+            _linkHandlerInfos[typeof(TNode)] = new LinkHandlerInfo
+            {
+                Type = typeof(THandler),
+                InitAction = onInit != null ? obj => { onInit.Invoke(obj as THandler); } : null
+            };
+        }
 
         /// <summary>
         /// ActionNodeHandlerのBindを解除
@@ -120,6 +184,44 @@ namespace GameAiBehaviour {
         }
 
         /// <summary>
+        /// DecorationNodeHandlersのBindを解除
+        /// </summary>
+        public void ResetDecorationNodeHandler<TNode>()
+            where TNode : HandleableDecorationNode
+        {
+            if (_disposed) return;
+
+            _decorationHandlerInfos.Remove(typeof(TNode));
+            
+            // 既に登録済のHandlerがあった場合は削除する
+            var removeKeys = _decorationNodeHandlers.Keys
+                .Where(x => x.GetType() == typeof(TNode))
+                .ToArray();
+            foreach (var removeKey in removeKeys) {
+                _decorationNodeHandlers.Remove(removeKey);
+            }
+        }
+
+        /// <summary>
+        /// LinkNodeHandlersのBindを解除
+        /// </summary>
+        public void ResetLinkNodeHandler<TNode>()
+            where TNode : HandleableLinkNode
+        {
+            if (_disposed) return;
+
+            _linkHandlerInfos.Remove(typeof(TNode));
+            
+            // 既に登録済のHandlerがあった場合は削除する
+            var removeKeys = _linkNodeHandlers.Keys
+                .Where(x => x.GetType() == typeof(TNode))
+                .ToArray();
+            foreach (var removeKey in removeKeys) {
+                _linkNodeHandlers.Remove(removeKey);
+            }
+        }
+
+        /// <summary>
         /// ActionNodeHandlerのBindを一括解除
         /// </summary>
         public void ResetActionNodeHandlers() {
@@ -129,6 +231,26 @@ namespace GameAiBehaviour {
             
             _actionHandlerInfos.Clear();
             _actionNodeHandlers.Clear();
+        }
+
+        /// <summary>
+        /// DecorationNodeHandlerのBindを一括解除
+        /// </summary>
+        public void ResetDecorationNodeHandlers()
+        {
+            if (_disposed) return;
+            _decorationHandlerInfos.Clear();
+            _decorationNodeHandlers.Clear();
+        }
+
+        /// <summary>
+        /// LinkNodeHandlerのBindを一括解除
+        /// </summary>
+        public void ResetLinkNodeHandlers()
+        {
+            if (_disposed) return;
+            _linkHandlerInfos.Clear();
+            _linkNodeHandlers.Clear();
         }
 
         /// <summary>
@@ -206,8 +328,9 @@ namespace GameAiBehaviour {
             _baseRunner = null;
 
             _data = null;
-            _actionHandlerInfos.Clear();
-            _actionNodeHandlers.Clear();
+            ResetActionNodeHandlers();
+            ResetDecorationNodeHandlers();
+            ResetLinkNodeHandlers();
         }
 
         /// <summary>
@@ -262,6 +385,52 @@ namespace GameAiBehaviour {
                 if (constructorInfo != null) {
                     handler = (IActionNodeHandler)constructorInfo.Invoke(Array.Empty<object>());
                     _actionNodeHandlers[node] = handler;
+                    handlerInfo.InitAction?.Invoke(handler);
+                }
+            }
+
+            return handler;
+        }
+
+        /// <summary>
+        /// DecorationNodeのハンドリング用インスタンスを取得
+        /// </summary>
+        IDecorationNodeHandler IBehaviourTreeController.GetDecoratorHandler(HandleableDecorationNode node)
+        {
+            if (node == null) return null;
+
+            if (_decorationNodeHandlers.TryGetValue(node, out var handler)) return handler;
+            
+            // 無ければ生成
+            if (_decorationHandlerInfos.TryGetValue(node.GetType(), out var handlerInfo))
+            {
+                var constructorInfo = handlerInfo.Type.GetConstructor(Type.EmptyTypes);
+                if (constructorInfo != null) {
+                    handler = (IDecorationNodeHandler)constructorInfo.Invoke(Array.Empty<object>());
+                    _decorationNodeHandlers[node] = handler;
+                    handlerInfo.InitAction?.Invoke(handler);
+                }
+            }
+
+            return handler;
+        }
+
+        /// <summary>
+        /// LinkNodeのハンドリング用インスタンスを取得
+        /// </summary>
+        ILinkNodeHandler IBehaviourTreeController.GetLinkHandler(HandleableLinkNode node)
+        {
+            if (node == null) return null;
+
+            if (_linkNodeHandlers.TryGetValue(node, out var handler)) return handler;
+            
+            // 無ければ生成
+            if (_linkHandlerInfos.TryGetValue(node.GetType(), out var handlerInfo))
+            {
+                var constructorInfo = handlerInfo.Type.GetConstructor(Type.EmptyTypes);
+                if (constructorInfo != null) {
+                    handler = (ILinkNodeHandler)constructorInfo.Invoke(Array.Empty<object>());
+                    _linkNodeHandlers[node] = handler;
                     handlerInfo.InitAction?.Invoke(handler);
                 }
             }

@@ -57,6 +57,15 @@ namespace GameAiBehaviour {
                 // 終了処理実行
                 handler.OnExit(Node);
             }
+
+            /// <summary>
+            /// 思考リセット時の処理(Override用)
+            /// </summary>
+            protected override void ResetInternal()
+            {
+                var handler = Controller.GetActionHandler(Node);
+                handler?.OnReset(Node);
+            }
         }
 
         /// <summary>
