@@ -74,8 +74,8 @@ namespace GameAiBehaviour.Editor {
             }
         }
         public float NodeWidth {
-            get => style.width.value.value;
-            set => style.width = value;
+            get => style.minWidth.value.value;
+            set => style.minWidth = value;
         }
         public Node Node { get; private set; }
         public Port Input { get; private set; }

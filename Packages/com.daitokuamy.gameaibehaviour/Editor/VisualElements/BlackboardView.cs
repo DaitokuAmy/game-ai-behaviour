@@ -56,12 +56,17 @@ namespace GameAiBehaviour.Editor {
         /// BlackboardAsset用のエディタを取得
         /// </summary>
         private UnityEditor.Editor GetEditor(BlackboardAsset blackboardAsset) {
-            if (blackboardAsset != null) {
-                if (_blackboardEditor == null || _blackboardEditor.target != blackboardAsset) {
+            if (blackboardAsset == null) {
+                DestroyEditor();
+            }
+            else {
+                if (_blackboardEditor != null && _blackboardEditor.target != blackboardAsset) {
                     DestroyEditor();
                 }
 
-                _blackboardEditor = UnityEditor.Editor.CreateEditor(blackboardAsset);
+                if (_blackboardEditor == null) {
+                    _blackboardEditor = UnityEditor.Editor.CreateEditor(blackboardAsset);
+                }
             }
 
             return _blackboardEditor;
@@ -107,10 +112,10 @@ namespace GameAiBehaviour.Editor {
                 DrawProperty(blackboard.BooleanPropertyNames,
                     key => EditorGUILayout.Toggle(key, blackboard.GetBoolean(key)),
                     (key, result) => blackboard.SetBoolean(key, result));
-                
+
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("[ConstProperties]", EditorStyles.miniBoldLabel);
-                
+
                 DrawProperty(blackboard.ConstIntegerPropertyNames,
                     key => EditorGUILayout.IntField(key, blackboard.GetInteger(key)),
                     null);
