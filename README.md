@@ -205,11 +205,18 @@ _controller.BindActionNodeHandler<FooNode, FooNodeHandler>(onInit: handler => {
   * 子ノードが失敗した場合、自身も失敗となる
 
 * Set Integer/Float/String/Boolean  
-![set_integer_node](https://github.com/user-attachments/assets/65ba9820-4bb5-4c19-8a7b-608dc3f26859)
-![set_float_node](https://github.com/user-attachments/assets/da6d708b-f4bb-4fb8-a533-8164bd441324)
-![set_string_node](https://github.com/user-attachments/assets/9a401564-5a80-4fdc-9027-690fe49f434f)
-![set_boolean_node](https://github.com/user-attachments/assets/e90fc589-2771-4cbe-ba22-132edf9dfec0)
+![set_integer_node](https://github.com/user-attachments/assets/902c375e-9442-4b4d-91ca-7c3d28da78f8)
+![set_float_node](https://github.com/user-attachments/assets/58890b32-07d1-4f04-87b2-f29bb4c5abd4)
+![set_string_node](https://github.com/user-attachments/assets/1529be48-1660-4990-b936-6e9a16aefc0a)
+![set_boolean_node](https://github.com/user-attachments/assets/2882bf01-a9e4-4366-a863-aabbd75011c8)
   * 通る際にPropertyの値を変更するノード
+  * 子ノードが成功した場合、自身も成功となる
+  * 子ノードが失敗した場合、自身も失敗となる
+
+* Add Integer/Float  
+![add_integer_node](https://github.com/user-attachments/assets/c82146de-34e5-43d8-9d7e-968fcb0afa3a)
+![add_float_node](https://github.com/user-attachments/assets/9a04cbc3-2efd-4902-90fd-59b22468b0d2)
+  * 通る際にPropertyの値を加算するノード
   * 子ノードが成功した場合、自身も成功となる
   * 子ノードが失敗した場合、自身も失敗となる
 
