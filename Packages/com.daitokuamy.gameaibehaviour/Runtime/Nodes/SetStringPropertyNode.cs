@@ -2,7 +2,7 @@
     /// <summary>
     /// Stringプロパティの値を変更するノード
     /// </summary>
-    [BehaviourTreeNode("Set Property/Set String")]
+    [BehaviourTreeNode("Property/Set String")]
     public sealed class SetStringPropertyNode : SetPropertyNode<string, StringValueObject, StringPropertyName> {
         /// <summary>
         /// ロジック基底

@@ -2,7 +2,7 @@
     /// <summary>
     /// Integerプロパティの値を変更するノード
     /// </summary>
-    [BehaviourTreeNode("Set Property/Set Integer")]
+    [BehaviourTreeNode("Property/Set Integer")]
     public sealed class SetIntegerPropertyNode : SetPropertyNode<int, IntegerValueObject, IntegerPropertyName> {
         /// <summary>
         /// ロジック基底

@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9109965821012574672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9182aecdbf12f48b7073347ab91c53, type: 3}
+  m_Name: FunctionRootNode
+  m_EditorClassIdentifier: 
+  guid: b1a7f10fd81fc9d4486c20dd32e7bcdb
+  position: {x: 1663, y: -200.99998}
+  title: "\u5024\u5909\u66F4"
+  child: {fileID: 3321568611767968553}
 --- !u!114 &-9096441730182936278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13,7 +29,7 @@ MonoBehaviour:
   m_Name: RootNode
   m_EditorClassIdentifier: 
   guid: f014b8d988251da45be1a68507b4ea56
-  position: {x: 537, y: -116.30002}
+  position: {x: 536.99994, y: -106.49996}
   title: 
   child: {fileID: 299288502928017254}
 --- !u!114 &-8624722297150084614
@@ -35,6 +51,22 @@ MonoBehaviour:
   conditions:
     conditions:
     - {fileID: -1704354767421863799}
+--- !u!114 &-8364079988860173763
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c2cf769ece98d749b8dfeccca27e99e, type: 3}
+  m_Name: FunctionNode
+  m_EditorClassIdentifier: 
+  guid: 942e5b8f1502aaf4ca51d0991836929b
+  position: {x: 750.75, y: -79.000015}
+  title: 
+  functionRoot: {fileID: -9109965821012574672}
 --- !u!114 &-8116135557820861484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -359,6 +391,10 @@ MonoBehaviour:
   - {fileID: 5721612230742485512}
   - {fileID: 2986070197695513260}
   - {fileID: 3321568611767968553}
+  - {fileID: 4884707173754210444}
+  - {fileID: 8646425114395206037}
+  - {fileID: -9109965821012574672}
+  - {fileID: -8364079988860173763}
   blackboardAsset: {fileID: 11400000, guid: fdcd5b0c167dc44b987f597c5c0a14b0, type: 2}
 --- !u!114 &299288502928017254
 MonoBehaviour:
@@ -527,14 +563,14 @@ MonoBehaviour:
   m_Name: SetStringPropertyNode
   m_EditorClassIdentifier: 
   guid: 10c17908555d0294a83bf4de71a55a59
-  position: {x: 1278, y: 255.5}
+  position: {x: 1663, y: -52.5}
   title: 
-  child: {fileID: 0}
+  child: {fileID: 8445153386366869020}
   propertyName:
     propertyName: Text
   value:
     useProperty: 0
-    constValue: 
+    constValue: HOGE
     propertyName: Text
 --- !u!114 &3321568611767968553
 MonoBehaviour:
@@ -549,14 +585,14 @@ MonoBehaviour:
   m_Name: SetBooleanPropertyNode
   m_EditorClassIdentifier: 
   guid: 53f97b83128789d46b37f9cdb71588f7
-  position: {x: 1463, y: 255.5}
+  position: {x: 1663, y: -127.63995}
   title: 
-  child: {fileID: 0}
+  child: {fileID: 2986070197695513260}
   propertyName:
     propertyName: Reset
   value:
-    useProperty: 1
-    constValue: 0
+    useProperty: 0
+    constValue: 1
     propertyName: Check
 --- !u!114 &3485847957161675038
 MonoBehaviour:
@@ -633,6 +669,25 @@ MonoBehaviour:
   subRoutine: {fileID: 0}
   duration: 3
   resetTickTimer: 1
+--- !u!114 &4884707173754210444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53ce92b70c1b6f44a88c7482865d60b, type: 3}
+  m_Name: AddFloatPropertyNode
+  m_EditorClassIdentifier: 
+  guid: 8e4dfe7429084b04498f5c14c3ce0e75
+  position: {x: 1663, y: 163}
+  title: 
+  child: {fileID: 8646425114395206037}
+  propertyName:
+    propertyName: TargetDistance
+  value: 0.5
 --- !u!114 &5274948584396916034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -684,14 +739,14 @@ MonoBehaviour:
   m_Name: SetFloatPropertyNode
   m_EditorClassIdentifier: 
   guid: bf20e2cf4bdd6cf45bfba0deeb5469c7
-  position: {x: 1463, y: 163.4}
+  position: {x: 1663, y: 89.5}
   title: 
-  child: {fileID: 0}
+  child: {fileID: 4884707173754210444}
   propertyName:
     propertyName: TargetDistance
   value:
     useProperty: 0
-    constValue: 0
+    constValue: 1.5
     propertyName: TargetDistance
 --- !u!114 &6227504010875714103
 MonoBehaviour:
@@ -756,14 +811,14 @@ MonoBehaviour:
   m_Name: SetIntegerPropertyNode
   m_EditorClassIdentifier: 
   guid: 5a792e161a161934783fe12a2f0503c3
-  position: {x: 1277, y: 163}
+  position: {x: 1663, y: 17.12001}
   title: 
-  child: {fileID: 0}
+  child: {fileID: 5721612230742485512}
   propertyName:
     propertyName: Sample
   value:
     useProperty: 0
-    constValue: 0
+    constValue: 16
     propertyName: Test
 --- !u!114 &8633490757648744762
 MonoBehaviour:
@@ -782,3 +837,22 @@ MonoBehaviour:
   hoge:
     foo: 0
     fuga: 0
+--- !u!114 &8646425114395206037
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b662b5e5e61a6d943b5baf9d41bda1bf, type: 3}
+  m_Name: AddIntegerPropertyNode
+  m_EditorClassIdentifier: 
+  guid: 703b1c7373ce61943b7f6b3fc7928d8f
+  position: {x: 1663, y: 242}
+  title: 
+  child: {fileID: 0}
+  propertyName:
+    propertyName: Sample
+  value: 1

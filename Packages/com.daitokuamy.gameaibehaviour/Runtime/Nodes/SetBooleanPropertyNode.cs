@@ -2,7 +2,7 @@
     /// <summary>
     /// Booleanプロパティの値を変更するノード
     /// </summary>
-    [BehaviourTreeNode("Set Property/Set Boolean")]
+    [BehaviourTreeNode("Property/Set Boolean")]
     public sealed class SetBooleanPropertyNode : SetPropertyNode<bool, BooleanValueObject, BooleanPropertyName> {
         /// <summary>
         /// ロジック基底

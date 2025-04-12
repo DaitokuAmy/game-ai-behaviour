@@ -2,7 +2,7 @@
     /// <summary>
     /// Floatプロパティの値を変更するノード
     /// </summary>
-    [BehaviourTreeNode("Set Property/Set Float")]
+    [BehaviourTreeNode("Property/Set Float")]
     public sealed class SetFloatPropertyNode : SetPropertyNode<float, FloatValueObject, FloatPropertyName> {
         /// <summary>
         /// ロジック基底

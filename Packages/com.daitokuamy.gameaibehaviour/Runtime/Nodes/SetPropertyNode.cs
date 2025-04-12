@@ -13,6 +13,9 @@ namespace GameAiBehaviour {
         [Tooltip("変更する値")]
         public TValueObject value;
         
+        /// <summary>説明</summary>
+        public override string Description => $"{propertyName} = {value}";
+        
         /// <summary>
         /// ロジック基底
         /// </summary>
