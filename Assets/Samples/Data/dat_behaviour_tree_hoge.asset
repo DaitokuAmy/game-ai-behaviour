@@ -355,6 +355,10 @@ MonoBehaviour:
   - {fileID: 3621230470430876040}
   - {fileID: -3033307032264944086}
   - {fileID: 5274948584396916034}
+  - {fileID: 8445153386366869020}
+  - {fileID: 5721612230742485512}
+  - {fileID: 2986070197695513260}
+  - {fileID: 3321568611767968553}
   blackboardAsset: {fileID: 11400000, guid: fdcd5b0c167dc44b987f597c5c0a14b0, type: 2}
 --- !u!114 &299288502928017254
 MonoBehaviour:
@@ -510,6 +514,50 @@ MonoBehaviour:
   subRoutine: {fileID: 0}
   logType: 3
   text: G
+--- !u!114 &2986070197695513260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5616af3a90330b746bcc3e22e03a748a, type: 3}
+  m_Name: SetStringPropertyNode
+  m_EditorClassIdentifier: 
+  guid: 10c17908555d0294a83bf4de71a55a59
+  position: {x: 1278, y: 255.5}
+  title: 
+  child: {fileID: 0}
+  propertyName:
+    propertyName: Text
+  value:
+    useProperty: 0
+    constValue: 
+    propertyName: Text
+--- !u!114 &3321568611767968553
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5e7ee47bc539d4abbf67f16f40b2aa, type: 3}
+  m_Name: SetBooleanPropertyNode
+  m_EditorClassIdentifier: 
+  guid: 53f97b83128789d46b37f9cdb71588f7
+  position: {x: 1463, y: 255.5}
+  title: 
+  child: {fileID: 0}
+  propertyName:
+    propertyName: Reset
+  value:
+    useProperty: 1
+    constValue: 0
+    propertyName: Check
 --- !u!114 &3485847957161675038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -623,6 +671,28 @@ MonoBehaviour:
     conditions:
     - {fileID: -3740395930079640521}
     - {fileID: -2763042764233742925}
+--- !u!114 &5721612230742485512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f169814102b6da4fb38d32702c7e1c3, type: 3}
+  m_Name: SetFloatPropertyNode
+  m_EditorClassIdentifier: 
+  guid: bf20e2cf4bdd6cf45bfba0deeb5469c7
+  position: {x: 1463, y: 163.4}
+  title: 
+  child: {fileID: 0}
+  propertyName:
+    propertyName: TargetDistance
+  value:
+    useProperty: 0
+    constValue: 0
+    propertyName: TargetDistance
 --- !u!114 &6227504010875714103
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -673,6 +743,28 @@ MonoBehaviour:
   position: {x: 938, y: -25}
   title: Test1
   child: {fileID: 3621230470430876040}
+--- !u!114 &8445153386366869020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac6c756f4eb4904cbfddd3c75d11493, type: 3}
+  m_Name: SetIntegerPropertyNode
+  m_EditorClassIdentifier: 
+  guid: 5a792e161a161934783fe12a2f0503c3
+  position: {x: 1277, y: 163}
+  title: 
+  child: {fileID: 0}
+  propertyName:
+    propertyName: Sample
+  value:
+    useProperty: 0
+    constValue: 0
+    propertyName: Test
 --- !u!114 &8633490757648744762
 MonoBehaviour:
   m_ObjectHideFlags: 1

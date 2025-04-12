@@ -21,8 +21,7 @@ namespace GameAiBehaviour.Editor {
 
         private Dictionary<string, PropertyInfo> _propertyInfos = new Dictionary<string, PropertyInfo>();
         private PropertyInfo _propertyInfo;
-
-
+        
         /// <summary>
         /// GUI拡張
         /// </summary>

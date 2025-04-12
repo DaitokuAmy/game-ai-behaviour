@@ -44,7 +44,7 @@ namespace GameAiBehaviour {
         /// <summary>
         /// プロパティ名のGUI描画
         /// </summary>
-        public static string PropertyNameField(Rect rect, string propertyName, Property.Type[] typeFilters) {
+        public static string PropertyNameField(Rect rect, string propertyName, Property.Type[] typeFilters, bool ignoreConstProperties = false) {
             // Treeがない場合はただのTextField
             if (CurrentTree == null) {
                 return EditorGUI.TextField(rect, propertyName);
@@ -54,7 +54,7 @@ namespace GameAiBehaviour {
             var propertyNames = Array.Empty<string>();
             if (CurrentTree.blackboardAsset != null) {
                 propertyNames = CurrentTree.blackboardAsset.properties
-                    .Concat(CurrentTree.blackboardAsset.constProperties)
+                    .Concat(ignoreConstProperties ? Array.Empty<Property>() : CurrentTree.blackboardAsset.constProperties)
                     .Where(x => typeFilters?.Contains(x.propertyType) ?? true)
                     .Select(x => x.propertyName)
                     .ToArray();
