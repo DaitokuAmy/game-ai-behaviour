@@ -204,6 +204,15 @@ _controller.BindActionNodeHandler<FooNode, FooNodeHandler>(onInit: handler => {
   * 子ノードが成功した場合、自身も成功となる
   * 子ノードが失敗した場合、自身も失敗となる
 
+* Set Integer/Float/String/Boolean  
+![set_integer_node](https://github.com/user-attachments/assets/65ba9820-4bb5-4c19-8a7b-608dc3f26859)
+![set_float_node](https://github.com/user-attachments/assets/da6d708b-f4bb-4fb8-a533-8164bd441324)
+![set_string_node](https://github.com/user-attachments/assets/9a401564-5a80-4fdc-9027-690fe49f434f)
+![set_boolean_node](https://github.com/user-attachments/assets/e90fc589-2771-4cbe-ba22-132edf9dfec0)
+  * 通る際にPropertyの値を変更するノード
+  * 子ノードが成功した場合、自身も成功となる
+  * 子ノードが失敗した場合、自身も失敗となる
+
 #### Action
 * Log Node  
 ![log_node](https://user-images.githubusercontent.com/6957962/212528664-e759e37d-cda5-4243-9147-8827c328e508.jpg)
