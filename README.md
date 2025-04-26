@@ -136,6 +136,41 @@ _controller.BindActionNodeHandler<FooNode, FooNodeHandler>(onInit: handler => {
 });
 ```
 
+#### 条件判定を増やす方法
+* HandleableConditionを継承したクラスを作成する
+```C#
+public sealed class FooCondition : HandleableCondition {
+  [Tooltip("チェックするIndex")]
+  public int checkIndex;
+}
+```
+* Controllerに処理をBindする
+```C#
+_controller.BindConditionHandler<FooCondition>((condition, blackboard) => {
+  return _hogeModel.Check(condition.checkIndex);
+});
+```
+* ControllerにHandlerクラスをBindする(別のBind方法)
+```C#
+public class FooConditionHandler : ConditionHandler<FooCondition> {
+  private FooModel _model;
+
+  public void Setup(FooModel model) {
+    _model = model;
+  }
+    
+  protected override bool CheckInternal(FooCondition condition, Blackboard blackboard) {
+    /* 判定処理 */
+    return _model.Check(condition.checkIndex);
+  }
+}
+```
+```C#
+_controller.BindConditionHandler<FooCondition, FooConditionHandler>(handler => {
+  handler.Setup(_model);
+});
+```
+
 ## 機能
 #### Root
 * Root Node  
