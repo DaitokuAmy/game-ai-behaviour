@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace GameAiBehaviour {
     /// <summary>
     /// 子ノードに値を付与するための基底クラス
     /// </summary>
+    [Serializable]
     public abstract class ChildNodeValueGroup<T> : IEnumerable<T> {
         [SerializeField]
         private List<T> _values = new();
